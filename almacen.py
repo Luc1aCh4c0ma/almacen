@@ -2,11 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 import mysql.connector 
 
-# Conexión a la base de datos MySQL
+# Conexión a la base de datos
 try:
     db_connection = mysql.connector.connect(user ='root', password= '123456', host = 'localhost',port='3306', database='almacen')
-
-    # Realiza tus operaciones de base de datos aquí
 
 except mysql.connector.Error as error:
     print(f"Error de MySQL: {error}")
@@ -15,7 +13,7 @@ finally:
     if 'connection' in locals():
         db_connection.close()
 
-# Función para cargar los productos desde la base de datos
+# Función para cargar los productos
 def cargar_productos():
     cursor = db_connection.cursor()
     cursor.execute("SELECT id_producto, nombre_producto FROM producto")
@@ -23,7 +21,7 @@ def cargar_productos():
     db_connection.close()
     return productos
 
-# Función para mostrar las características del producto seleccionado
+# Función para seleccionar el producto
 def mostrar_caracteristicas():
     producto_seleccionado = combo_productos.get()
     if producto_seleccionado:
@@ -54,7 +52,7 @@ combo_productos = ttk.Combobox(root, values=productos)
 combo_productos.grid(row=0, column=0, padx=10, pady=10)
 
 # Botón para mostrar características
-btn_mostrar = tk.Button(root, text="Mostrar Características", command=mostrar_caracteristicas)
+btn_mostrar = tk.Button(root, text="Seleccionar", command=mostrar_caracteristicas)
 btn_mostrar.grid(row=0, column=1, padx=10, pady=10)
 
 # Etiqueta para mostrar las características del producto seleccionado
